@@ -4,7 +4,14 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://icy-moss-0b335290f.7.azurestaticapps.net",
+    ],
+  }),
+);
 
 app.get("/", (req, res) => {
   res.send("Survey Portal API Running");
