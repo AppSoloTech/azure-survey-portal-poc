@@ -8,6 +8,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
+      "https://survey-poc.appsolotech.com",
       "https://icy-moss-0b335290f.7.azurestaticapps.net",
     ],
   }),
