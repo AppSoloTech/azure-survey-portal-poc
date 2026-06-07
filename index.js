@@ -3,13 +3,23 @@ const express = require("express");
 
 const app = express();
 
-app.get("/", async (req, res) => {
-  async function test_conn() {
-    const result = await db.any("SELECT * FROM users JOIN roles ON users.role_id = roles.id");
-    return result;
+app.get("/", (req, res) => {
+  res.send("Survey Portal API Running");
+});
+
+app.get("/api/users", async (req, res) => {
+  try {
+    const users = await db.any(`
+      SELECT users.id, users.email, roles.name AS role
+      FROM users
+      JOIN roles ON users.role_id = roles.id
+    `);
+
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
   }
-  let data = await test_conn();
-  res.send(data);
 });
 
 const port = process.env.PORT || 3000;
